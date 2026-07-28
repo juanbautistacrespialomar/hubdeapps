@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Colección de apps de Juan — elegí, abrí, instalá.">
+<title>Las apps de Juan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PALETA — heladería artesanal en clave oscura
+   pistacho (públicas) + dulce de leche (privadas) sobre pizarra
+   ============================================================ */
+:root{
+  --bg:        #0E1618;
+  --bg-2:      #0B1113;
+  --surface:   rgba(255,255,255,.035);
+  --surface-2: rgba(255,255,255,.06);
+  --linea:     rgba(255,255,255,.09);
+  --linea-2:   rgba(255,255,255,.14);
+
+  --crema:     #F1ECE1;
+  --tinta:     #A6B2AF;
+  --tinta-2:   #6E7C79;
+
+  --pistacho:      #A9DDB4;
+  --pistacho-vivo: #6EC77E;
+  --pistacho-glow: rgba(110,199,126,.16);
+
+  --dulce:      #E7B57C;
+  --dulce-vivo: #E0A458;
+  --dulce-glow: rgba(224,164,88,.14);
+
+  --rojo: #E08A7C;
+
+  --r: 16px;
+  --maxw: 1120px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, var(--pistacho-glow), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, var(--dulce-glow), transparent 55%),
+    var(--bg);
+  color:var(--crema);
+  font-family:"Inter",system-ui,-apple-system,sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+a{color:inherit}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* ---------- MASTHEAD ---------- */
+header.masthead{padding:64px 0 30px}
+.eyebrow{
+  font-family:"Space Mono",monospace;
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--pistacho-vivo);
+  display:inline-flex;align-items:center;gap:9px;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--pistacho-vivo);opacity:.7}
+h1{
+  font-family:"Fraunces",serif;
+  font-optical-sizing:auto;
+  font-weight:560;
+  font-size:clamp(38px,6.4vw,68px);
+  line-height:1.02;
+  letter-spacing:-.015em;
+  margin:14px 0 0;
+}
+h1 em{font-style:italic;font-weight:440;color:var(--pistacho)}
+.lede{
+  margin:16px 0 0;max-width:52ch;color:var(--tinta);
+  font-size:clamp(15px,1.7vw,17px);
+}
+
+/* ---------- TOOLBAR ---------- */
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;
+  margin:34px 0 22px;
+}
+.search{
+  position:relative;flex:1 1 260px;min-width:220px;
+}
+.search input{
+  width:100%;padding:12px 14px 12px 40px;
+  background:var(--surface);border:1px solid var(--linea);
+  border-radius:12px;color:var(--crema);
+  font:inherit;font-size:15px;
+  transition:border-color .18s, background .18s;
+}
+.search input::placeholder{color:var(--tinta-2)}
+.search input:focus{outline:none;border-color:var(--pistacho-vivo);background:var(--surface-2)}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--tinta-2)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-family:"Space Mono",monospace;font-size:12.5px;
+  padding:8px 13px;border-radius:999px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--linea);
+  color:var(--tinta);transition:.16s;user-select:none;
+}
+.chip:hover{border-color:var(--linea-2);color:var(--crema)}
+.chip[aria-pressed="true"]{
+  background:var(--pistacho-glow);border-color:var(--pistacho-vivo);color:var(--pistacho);
+}
+
+/* ---------- SECCIONES ---------- */
+.section-head{
+  display:flex;align-items:baseline;gap:12px;
+  margin:38px 0 18px;
+}
+.section-head h2{
+  font-family:"Fraunces",serif;font-weight:520;font-size:24px;margin:0;letter-spacing:-.01em;
+}
+.section-head .count{
+  font-family:"Space Mono",monospace;font-size:12.5px;color:var(--tinta-2);
+}
+.section-head .rule{flex:1;height:1px;background:var(--linea)}
+
+/* ---------- GRID + CARDS ---------- */
+.grid{
+  display:grid;gap:16px;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+}
+.card{
+  position:relative;overflow:hidden;
+  background:var(--surface);border:1px solid var(--linea);
+  border-radius:var(--r);padding:20px 20px 18px;
+  display:flex;flex-direction:column;
+  transition:transform .2s cubic-bezier(.2,.7,.3,1), border-color .2s, background .2s;
+}
+.card::before{ /* lomo de color de la ficha */
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--pistacho-vivo);opacity:.85;
+}
+.card.priv::before{background:var(--dulce-vivo)}
+.card:hover{transform:translateY(-4px);border-color:var(--linea-2);background:var(--surface-2)}
+
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tag{
+  font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 9px;border-radius:6px;
+  background:var(--pistacho-glow);color:var(--pistacho);border:1px solid rgba(110,199,126,.25);
+}
+.card.priv .tag{background:var(--dulce-glow);color:var(--dulce);border-color:rgba(224,164,88,.28)}
+.ver{
+  margin-left:auto;font-family:"Space Mono",monospace;font-size:11px;color:var(--tinta-2);
+}
+.card h3{
+  font-family:"Fraunces",serif;font-weight:520;font-size:20px;margin:0 0 6px;letter-spacing:-.01em;
+}
+.card p{margin:0;color:var(--tinta);font-size:14px;flex:1}
+.card-foot{display:flex;align-items:center;gap:12px;margin-top:16px}
+.abrir{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:"Space Mono",monospace;font-size:13px;font-weight:700;letter-spacing:.02em;
+  text-decoration:none;padding:9px 15px;border-radius:10px;
+  background:var(--pistacho-vivo);color:#06120A;
+  transition:transform .15s, filter .15s;
+}
+.card.priv .abrir{background:var(--dulce-vivo);color:#1c1206}
+.abrir:hover{transform:translateX(2px);filter:brightness(1.06)}
+.pwa{
+  font-family:"Space Mono",monospace;font-size:11px;color:var(--tinta-2);
+  display:inline-flex;align-items:center;gap:5px;
+}
+.pwa svg{width:13px;height:13px}
+
+/* ---------- TRASTIENDA (privada) ---------- */
+.vault{
+  margin:14px 0 60px;
+  border:1px dashed var(--linea-2);border-radius:var(--r);
+  background:linear-gradient(180deg, rgba(224,164,88,.05), transparent 70%);
+  padding:26px 24px;
+}
+.vault-locked{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+.vault-locked .ic{
+  width:46px;height:46px;flex:none;border-radius:12px;
+  display:grid;place-items:center;
+  background:var(--dulce-glow);border:1px solid rgba(224,164,88,.3);color:var(--dulce);
+}
+.vault-locked .txt{flex:1;min-width:200px}
+.vault-locked .txt strong{font-family:"Fraunces",serif;font-weight:520;font-size:19px;display:block}
+.vault-locked .txt span{color:var(--tinta);font-size:14px}
+.pinbox{display:flex;gap:9px;flex:1 1 240px;min-width:220px}
+.pinbox input{
+  flex:1;padding:11px 14px;background:var(--bg-2);border:1px solid var(--linea-2);
+  border-radius:11px;color:var(--crema);font:inherit;font-size:15px;letter-spacing:.1em;
+}
+.pinbox input:focus{outline:none;border-color:var(--dulce-vivo)}
+.btn-dulce{
+  font-family:"Space Mono",monospace;font-weight:700;font-size:13px;
+  padding:11px 18px;border:none;border-radius:11px;cursor:pointer;
+  background:var(--dulce-vivo);color:#1c1206;transition:.15s;
+}
+.btn-dulce:hover{filter:brightness(1.06)}
+.btn-dulce:disabled{opacity:.5;cursor:progress}
+.pin-error{color:var(--rojo);font-size:13px;font-family:"Space Mono",monospace;margin-top:10px;display:none}
+.pin-error.show{display:block}
+
+/* ---------- ADMIN ---------- */
+details.admin{margin-top:24px;border-top:1px solid var(--linea);padding-top:18px}
+details.admin summary{
+  cursor:pointer;font-family:"Space Mono",monospace;font-size:13px;color:var(--dulce);
+  list-style:none;display:flex;align-items:center;gap:8px;
+}
+details.admin summary::-webkit-details-marker{display:none}
+details.admin summary::before{content:"⚙";font-size:15px}
+.admin-body{margin-top:16px;display:grid;gap:14px}
+.admin-body label{font-size:13px;color:var(--tinta);font-family:"Space Mono",monospace}
+.admin-body textarea{
+  width:100%;min-height:150px;resize:vertical;
+  background:var(--bg-2);border:1px solid var(--linea);border-radius:11px;
+  color:var(--crema);font-family:"Space Mono",monospace;font-size:12.5px;line-height:1.55;
+  padding:13px;
+}
+.admin-body textarea:focus{outline:none;border-color:var(--linea-2)}
+.admin-row{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.admin-row .field{flex:1;min-width:160px}
+.admin-row input{
+  width:100%;padding:10px 13px;background:var(--bg-2);border:1px solid var(--linea);
+  border-radius:10px;color:var(--crema);font:inherit;font-size:14px;
+}
+.admin-row input:focus{outline:none;border-color:var(--linea-2)}
+.out{display:none}
+.out.show{display:block}
+.hint{font-size:13px;color:var(--tinta);line-height:1.6}
+.hint code{font-family:"Space Mono",monospace;background:var(--surface-2);padding:2px 6px;border-radius:5px;color:var(--pistacho)}
+.btn-ghost{
+  font-family:"Space Mono",monospace;font-size:12.5px;padding:9px 14px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--linea-2);border-radius:10px;color:var(--crema);transition:.15s;
+}
+.btn-ghost:hover{background:var(--surface-2)}
+
+/* ---------- FOOTER ---------- */
+footer{padding:30px 0 50px;border-top:1px solid var(--linea);margin-top:20px}
+footer p{font-family:"Space Mono",monospace;font-size:12px;color:var(--tinta-2);margin:0}
+
+.empty{color:var(--tinta-2);font-family:"Space Mono",monospace;font-size:13px;padding:20px 0}
+
+/* ---------- MOTION ---------- */
+.card{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+}
+:focus-visible{outline:2px solid var(--pistacho-vivo);outline-offset:2px;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <span class="eyebrow">colección personal</span>
+    <h1>Las apps de <em>Juan</em></h1>
+    <p class="lede">Todo lo que fui construyendo, en un solo lugar. Elegí la que te sirva, abrila y, si es una PWA, instalala en tu teléfono.</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="Buscar app…" autocomplete="off" aria-label="Buscar app">
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
+  </div>
+
+  <div class="section-head">
+    <h2>En vitrina</h2>
+    <span class="count" id="count-pub"></span>
+    <span class="rule"></span>
+  </div>
+  <div class="grid" id="grid-pub"></div>
+
+  <div class="section-head" style="margin-top:48px">
+    <h2>Trastienda</h2>
+    <span class="count">privado</span>
+    <span class="rule"></span>
+  </div>
+
+  <section class="vault" id="vault">
+    <!-- estado bloqueado -->
+    <div class="vault-locked" id="vault-locked">
+      <div class="ic" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="txt">
+        <strong>Apps privadas</strong>
+        <span>Cifradas de punta a punta. Sin el PIN, nadie las ve — ni mirando el código.</span>
+      </div>
+      <div class="pinbox">
+        <input id="pin" type="password" inputmode="numeric" placeholder="PIN" aria-label="PIN de acceso">
+        <button class="btn-dulce" id="unlock">Entrar</button>
+      </div>
+    </div>
+    <p class="pin-error" id="pin-error">PIN incorrecto. Probá de nuevo.</p>
+
+    <!-- estado desbloqueado -->
+    <div id="vault-open" hidden>
+      <div class="grid" id="grid-priv" style="margin-top:4px"></div>
+
+      <details class="admin">
+        <summary>Administrar trastienda (solo vos)</summary>
+        <div class="admin-body">
+          <p class="hint">Editá el JSON de tus apps privadas, poné el PIN con el que querés cifrarlas y generá el código. Después pegá ese código reemplazando el valor de <code>HIDDEN_ENCRYPTED</code> en el archivo <code>index.html</code>.</p>
+          <div>
+            <label for="apps-json">Apps privadas (JSON)</label>
+            <textarea id="apps-json" spellcheck="false"></textarea>
+          </div>
+          <div class="admin-row">
+            <div class="field">
+              <label for="new-pin">PIN para cifrar</label>
+              <input id="new-pin" type="text" placeholder="Tu PIN nuevo o el actual">
+            </div>
+            <button class="btn-dulce" id="gen">Generar código cifrado</button>
+          </div>
+          <div class="out" id="out">
+            <label for="blob-out">Pegá esto en <code>HIDDEN_ENCRYPTED</code></label>
+            <textarea id="blob-out" readonly spellcheck="false" style="min-height:110px"></textarea>
+            <div style="margin-top:8px"><button class="btn-ghost" id="copy">Copiar código</button></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <p>// hecho por juan · vitrina pública + trastienda cifrada (AES-256-GCM)</p>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   1) APPS PÚBLICAS  →  editá libremente esta lista
+   Campos:
+     nombre        (texto)
+     descripcion   (texto corto)
+     url           (link a la app)
+     tag           (categoría — sirve para los filtros)
+     version       (opcional, ej "v6.31")
+     instalable    (true = muestra "PWA instalable")
+   ============================================================ */
+const APPS = [
+  { nombre:"appdegastos",       tag:"Finanzas",  version:"v6.31", instalable:true,
+    descripcion:"Control de gastos personales: presupuestos, balance proyectado y export a Excel.",
+    url:"https://tu-usuario.github.io/appdegastos/" },
+
+  { nombre:"Compartimos",       tag:"Finanzas",  instalable:true,
+    descripcion:"Divisor de gastos en grupo. Cargás quién pagó qué y te dice quién le debe a quién.",
+    url:"https://tu-usuario.github.io/compartimos/" },
+
+  { nombre:"Anotador de Truco", tag:"Juegos",    instalable:true,
+    descripcion:"Anotador de truco con frases rotativas de fin de partida. Chau papel y lápiz.",
+    url:"https://tu-usuario.github.io/truco/" },
+
+  { nombre:"Soy Bostero",       tag:"Fútbol",    instalable:true,
+    descripcion:"Seguidor de partidos de Boca: resultados, próximos rivales y ranking de goleadores.",
+    url:"https://tu-usuario.github.io/soy-bostero/" },
+
+  { nombre:"NotiLucciano's",    tag:"Diversión", instalable:true,
+    descripcion:"El newsletter satírico de la oficina, en formato kiosco. Nueva edición cada tanto.",
+    url:"https://tu-usuario.github.io/notiluccianos/" },
+];
+
+/* ============================================================
+   2) APPS PRIVADAS (cifradas)
+   NO se editan a mano acá. Usá el panel "Administrar trastienda"
+   (abajo, con tu PIN) para regenerar este texto.
+   PIN de ejemplo actual: 1234  ← CAMBIALO.
+   ============================================================ */
+const HIDDEN_ENCRYPTED = "Mhn5TXOii3GZNW3ynKCpIQTe+O095IGBdTl4nRAbOTqnsvUTHuWed2Fy6lTaXwGfwGAq3hBDHLCOG+hA8PFHr7f3MgV+NqMjigjufHXNcVOq8eVZ3AHge86NAYiv6HMl9OP3Wia/jdRxUj6sM4PPhN08pXsiaTTLEL5yBoTKx5SSOUTbsyZMvZh24A2A8hekuX0WBeYVAIuE5e0t03JA/YiPmqnFfQ13BTDF8q2QlB3qyEUJRKTw69+qvsHfg/01u6ph2hb+92PgcPYj1dkXVml8sdD3VHrfVVb7HV77/M4mi8IORKhWX54M/72K5bgyFiuY+6NreDq4jeVg3adh2lziQ04Xuo4+2xf9NkhuDxbH6Ftkm7Ve4z5NdAQdSNgM/prZqmUPjQ==";
+
+/* ============================================================
+   3) CRIPTO  (AES-256-GCM + PBKDF2/SHA-256, 200k iteraciones)
+   layout del blob:  salt(16) | iv(12) | ciphertext+tag
+   ============================================================ */
+const ITER = 200000;
+const TE = new TextEncoder(), TD = new TextDecoder();
+
+async function deriveKey(pin, salt){
+  const base = await crypto.subtle.importKey("raw", TE.encode(pin), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey(
+    { name:"PBKDF2", salt, iterations:ITER, hash:"SHA-256" },
+    base, { name:"AES-GCM", length:256 }, false, ["encrypt","decrypt"]
+  );
+}
+const b64ToBytes = b64 => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+function bytesToB64(bytes){ let s=""; for(const b of bytes) s+=String.fromCharCode(b); return btoa(s); }
+
+async function decryptApps(b64, pin){
+  const raw = b64ToBytes(b64);
+  const salt = raw.slice(0,16), iv = raw.slice(16,28), data = raw.slice(28);
+  const key = await deriveKey(pin, salt);
+  const plain = await crypto.subtle.decrypt({ name:"AES-GCM", iv }, key, data);
+  return JSON.parse(TD.decode(plain));
+}
+async function encryptApps(apps, pin){
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv   = crypto.getRandomValues(new Uint8Array(12));
+  const key  = await deriveKey(pin, salt);
+  const ct   = new Uint8Array(await crypto.subtle.encrypt({ name:"AES-GCM", iv }, key, TE.encode(JSON.stringify(apps))));
+  const out  = new Uint8Array(16 + 12 + ct.length);
+  out.set(salt,0); out.set(iv,16); out.set(ct,28);
+  return bytesToB64(out);
+}
+
+/* ============================================================
+   4) RENDER
+   ============================================================ */
+const $ = s => document.querySelector(s);
+let PUB = APPS.slice();
+let PRIV = [];            // se llena al desbloquear
+let activeTag = "todas";
+let query = "";
+
+const iconPWA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>';
+const iconArrow = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>';
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function cardHTML(app, priv){
+  return `<article class="card${priv ? ' priv':''}">
+    <div class="card-top">
+      <span class="tag">${esc(app.tag || "app")}</span>
+      ${app.version ? `<span class="ver">${esc(app.version)}</span>` : ''}
+    </div>
+    <h3>${esc(app.nombre)}</h3>
+    <p>${esc(app.descripcion || "")}</p>
+    <div class="card-foot">
+      <a class="abrir" href="${esc(app.url)}" target="_blank" rel="noopener">Abrir ${iconArrow}</a>
+      ${app.instalable ? `<span class="pwa">${iconPWA} instalable</span>` : ''}
+    </div>
+  </article>`;
+}
+
+function matches(app){
+  const okTag = activeTag === "todas" || (app.tag || "").toLowerCase() === activeTag;
+  const hay = (app.nombre + " " + (app.descripcion||"") + " " + (app.tag||"")).toLowerCase();
+  const okQ = !query || hay.includes(query);
+  return okTag && okQ;
+}
+
+function renderGrid(el, list){
+  const filtered = list.filter(matches);
+  const priv = el.id === "grid-priv";
+  el.innerHTML = filtered.length
+    ? filtered.map(a => cardHTML(a, priv)).join("")
+    : `<p class="empty">No hay apps que coincidan.</p>`;
+  return filtered.length;
+}
+
+function renderAll(){
+  const nPub = renderGrid($("#grid-pub"), PUB);
+  $("#count-pub").textContent = nPub + (nPub === 1 ? " app" : " apps");
+  if(!$("#vault-open").hidden) renderGrid($("#grid-priv"), PRIV);
+}
+
+function buildChips(){
+  const tags = ["todas", ...new Set(APPS.map(a => (a.tag||"").toLowerCase()).filter(Boolean))];
+  $("#chips").innerHTML = tags.map(t =>
+    `<button class="chip" data-tag="${esc(t)}" aria-pressed="${t==='todas'}">${t==='todas'?'todas':esc(t)}</button>`
+  ).join("");
+  $("#chips").addEventListener("click", e => {
+    const b = e.target.closest(".chip"); if(!b) return;
+    activeTag = b.dataset.tag;
+    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+    renderAll();
+  });
+}
+
+/* ---------- búsqueda ---------- */
+$("#q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); renderAll(); });
+
+/* ---------- desbloqueo ---------- */
+async function tryUnlock(){
+  const pin = $("#pin").value.trim();
+  if(!pin) return;
+  const btn = $("#unlock"); btn.disabled = true; btn.textContent = "…";
+  $("#pin-error").classList.remove("show");
+  try{
+    PRIV = await decryptApps(HIDDEN_ENCRYPTED, pin);
+    $("#vault-locked").style.display = "none";
+    $("#vault-open").hidden = false;
+    renderGrid($("#grid-priv"), PRIV);
+    $("#apps-json").value = JSON.stringify(PRIV, null, 2);
+    $("#new-pin").value = pin;
+  }catch(err){
+    $("#pin-error").classList.add("show");
+    $("#pin").value = ""; $("#pin").focus();
+  }finally{
+    btn.disabled = false; btn.textContent = "Entrar";
+  }
+}
+$("#unlock").addEventListener("click", tryUnlock);
+$("#pin").addEventListener("keydown", e => { if(e.key === "Enter") tryUnlock(); });
+
+/* ---------- admin: regenerar blob ---------- */
+$("#gen").addEventListener("click", async () => {
+  const pin = $("#new-pin").value.trim();
+  if(!pin){ alert("Poné un PIN para cifrar."); return; }
+  let apps;
+  try{ apps = JSON.parse($("#apps-json").value); }
+  catch(err){ alert("El JSON tiene un error de sintaxis:\n" + err.message); return; }
+  if(!Array.isArray(apps)){ alert("El JSON tiene que ser una lista [ ... ] de apps."); return; }
+  const blob = await encryptApps(apps, pin);
+  $("#blob-out").value = blob;
+  $("#out").classList.add("show");
+});
+$("#copy").addEventListener("click", () => {
+  const t = $("#blob-out"); t.select();
+  navigator.clipboard.writeText(t.value).then(() => {
+    const b = $("#copy"); b.textContent = "¡Copiado!"; setTimeout(() => b.textContent = "Copiar código", 1500);
+  });
+});
+
+/* ---------- init ---------- */
+buildChips();
+renderAll();
+</script>
+</body>
+</html>
