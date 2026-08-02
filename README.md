@@ -71,6 +71,7 @@ Los botones "Abrir" apuntan a cada app en su GitHub Pages:
 | Hábitos | `juanbautistacrespialomar.github.io/habitos/` |
 | Anotador de Truco | `juanbautistacrespialomar.github.io/anotadortruco/` |
 | Soy Bostero | `juanbautistacrespialomar.github.io/soybostero/` |
+| Tu Profe | `juanbautistacrespialomar.github.io/tuprofe/` |
 
 Para que cada botón funcione, esa app tiene que tener **GitHub Pages activo** en su repo. Si alguna no abre, revisá Settings → Pages de ese repo.
 
